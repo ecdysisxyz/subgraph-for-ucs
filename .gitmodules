@@ -4,3 +4,6 @@
 [submodule "packages/contracts/lib/ucs-ops"]
 	path = packages/contracts/lib/ucs-ops
 	url = https://github.com/ecdysisxyz/ucs-ops
+[submodule "packages/contracts/lib/ucs-contracts"]
+	path = packages/contracts/lib/ucs-contracts
+	url = https://github.com/ecdysisxyz/ucs-contracts
