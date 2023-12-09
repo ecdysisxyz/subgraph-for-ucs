@@ -7,18 +7,59 @@ dataSources:
     network: scroll-sepolia
     source:
       address: "0xD87A8DD0336fdB7eA6861D0355E13Be76A04f448"
-      abi: ERC7546Proxy
+      abi: IDefaultOps
       startBlock: 2533926
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - DictionaryUpgraded
+        - Dictionary
+        - Implementations
+        - Admin
+        - ClonedProxies
       abis:
         - name: ERC7546Proxy
           file: ERC7546Proxy/abis/ERC7546Proxy.json
+        - name: IDefaultOps
+          file: ERC7546Proxy/abis/IDefaultOps.json
       eventHandlers:
         - event: DictionaryUpgraded(indexed address)
           handler: handleDictionaryUpgraded
+        - event: ImplementationSet(bytes4,address)
+          handler: handleImplementationSet
+        - event: AdminSet(address)
+          handler: handleAdminSet
+        - event: ProxyCloned(address)
+          handler: handleProxyCloned
       file: ERC7546Proxy/ERC7546Proxy.wasm
+templates:
+  - name: ClonedProxies
+    kind: ethereum
+    network: scroll-sepolia
+    source:
+      abi: IDefaultOps
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ERC7546Proxy/ERC7546Proxy.wasm
+      entities:
+        - Dictionary
+        - Implementations
+        - Admin
+        - ClonedProxies
+      abis:
+        - name: ERC7546Proxy
+          file: ClonedProxies/abis/ERC7546Proxy.json
+        - name: IDefaultOps
+          file: ClonedProxies/abis/IDefaultOps.json
+      eventHandlers:
+        - event: DictionaryUpgraded(indexed address)
+          handler: handleDictionaryUpgraded
+        - event: ImplementationSet(bytes4,address)
+          handler: handleImplementationSet
+        - event: AdminSet(address)
+          handler: handleAdminSet
+        - event: ProxyCloned(address)
+          handler: handleProxyCloned

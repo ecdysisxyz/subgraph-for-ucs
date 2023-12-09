@@ -57,6 +57,19 @@
         },
         {
             "type": "event",
+            "name": "DictionaryUpgraded",
+            "inputs": [
+                {
+                    "name": "dictionary",
+                    "type": "address",
+                    "indexed": true,
+                    "internalType": "address"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
             "name": "ImplementationSet",
             "inputs": [
                 {
@@ -86,6 +99,7 @@
                 }
             ],
             "anonymous": false
-        }
+        },
+        { "type": "error", "name": "NON_CONTRACT", "inputs": [] }
     ]
 }

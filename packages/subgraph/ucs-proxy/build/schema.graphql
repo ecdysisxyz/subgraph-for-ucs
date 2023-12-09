@@ -1,7 +1,37 @@
-type DictionaryUpgraded @entity(immutable: true) {
-  id: Bytes!
-  dictionary: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+type Dictionary @entity(immutable: true) {
+    id: String!
+    dictionary: Bytes! # address
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
+}
+
+type ClonedProxies @entity {
+    id: Bytes!
+    proxy: [Bytes!] # address
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
+}
+
+type Implementations @entity {
+    id: String!
+    operations: [Operation!]
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
+}
+
+type Operation @entity {
+    id: Bytes!
+    selector: Bytes! # bytes4
+    implementation: Bytes! # address
+}
+
+type Admin @entity {
+    id: String!
+    admin: Bytes! # address
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
 }
