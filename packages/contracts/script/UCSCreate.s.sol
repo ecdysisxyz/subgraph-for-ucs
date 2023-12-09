@@ -3,9 +3,8 @@ pragma solidity ^0.8.22;
 
 import {Script, console2} from "forge-std/Script.sol";
 import {UCS} from "@ucs-ops/src/UCS.sol";
-import {UCSDeploySequence} from "@ucs-ops/script/UCSDeploySequence.sol";
 
-contract UCSDeployScript is Script {
+contract UCSCreateScript is Script {
     uint256 deployerPrivateKey;
     address ucsAddr;
 
