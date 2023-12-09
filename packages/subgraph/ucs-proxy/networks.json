@@ -1,0 +1,8 @@
+{
+  "scroll-sepolia": {
+    "ERC7546Proxy": {
+      "address": "0xD87A8DD0336fdB7eA6861D0355E13Be76A04f448",
+      "startBlock": 2533926
+    }
+  }
+}

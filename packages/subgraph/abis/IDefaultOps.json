@@ -1,0 +1,46 @@
+{
+    "abi": [
+        {
+            "type": "function",
+            "name": "clone",
+            "inputs": [
+                { "name": "initData", "type": "bytes", "internalType": "bytes" }
+            ],
+            "outputs": [
+                { "name": "", "type": "address", "internalType": "address" }
+            ],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setAdmin",
+            "inputs": [
+                {
+                    "name": "admin",
+                    "type": "address",
+                    "internalType": "address"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setImplementation",
+            "inputs": [
+                {
+                    "name": "selector",
+                    "type": "bytes4",
+                    "internalType": "bytes4"
+                },
+                {
+                    "name": "implementation",
+                    "type": "address",
+                    "internalType": "address"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        }
+    ]
+}
