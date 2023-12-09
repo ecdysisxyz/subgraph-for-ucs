@@ -14,3 +14,7 @@
 
 ## Deployed Subgraph
 - https://api.studio.thegraph.com/query/60862/subgraph-for-ucs/v0.0.16/graphql
+
+### UCS SubgraphGen
+The Ultimate Tool for Easy Creation and Deployment of Upgradeable Clone Standard Subgraphs
+https://github.com/ecdysisxyz/ucs-subgraphgen
