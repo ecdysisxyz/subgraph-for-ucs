@@ -1,0 +1,7 @@
+type DictionaryUpgraded @entity(immutable: true) {
+  id: Bytes!
+  dictionary: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

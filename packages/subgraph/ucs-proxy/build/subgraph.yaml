@@ -1,0 +1,24 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ERC7546Proxy
+    network: scroll-sepolia
+    source:
+      address: "0xD87A8DD0336fdB7eA6861D0355E13Be76A04f448"
+      abi: ERC7546Proxy
+      startBlock: 2533926
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - DictionaryUpgraded
+      abis:
+        - name: ERC7546Proxy
+          file: ERC7546Proxy/abis/ERC7546Proxy.json
+      eventHandlers:
+        - event: DictionaryUpgraded(indexed address)
+          handler: handleDictionaryUpgraded
+      file: ERC7546Proxy/ERC7546Proxy.wasm
