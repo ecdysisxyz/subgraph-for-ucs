@@ -13,7 +13,7 @@
         },
         {
             "type": "function",
-            "name": "setAdmin",
+            "name": "initSetAdmin",
             "inputs": [
                 {
                     "name": "admin",
@@ -41,6 +41,51 @@
             ],
             "outputs": [],
             "stateMutability": "nonpayable"
+        },
+        {
+            "type": "event",
+            "name": "AdminSet",
+            "inputs": [
+                {
+                    "name": "admin",
+                    "type": "address",
+                    "indexed": false,
+                    "internalType": "address"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "ImplementationSet",
+            "inputs": [
+                {
+                    "name": "selector",
+                    "type": "bytes4",
+                    "indexed": false,
+                    "internalType": "bytes4"
+                },
+                {
+                    "name": "implementation",
+                    "type": "address",
+                    "indexed": false,
+                    "internalType": "address"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "ProxyCloned",
+            "inputs": [
+                {
+                    "name": "proxy",
+                    "type": "address",
+                    "indexed": false,
+                    "internalType": "address"
+                }
+            ],
+            "anonymous": false
         }
     ]
 }
