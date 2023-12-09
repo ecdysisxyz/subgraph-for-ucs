@@ -1,22 +1,23 @@
 type Dictionary @entity(immutable: true) {
     id: String!
-    dictionary: Bytes! # address
+    dictionaryImplAddress: Bytes! # address
+    implementationList: ImplementationList!
     blockNumber: BigInt!
     blockTimestamp: BigInt!
     transactionHash: Bytes!
 }
 
-type ClonedProxies @entity {
-    id: Bytes!
-    proxy: [Bytes!] # address
+type ClonedProxyList @entity {
+    id: String! # address
+    proxyAddresses: [Bytes!]! # address
     blockNumber: BigInt!
     blockTimestamp: BigInt!
     transactionHash: Bytes!
 }
 
-type Implementations @entity {
+type ImplementationList @entity {
     id: String!
-    operations: [Operation!]
+    operations: [Operation!]!
     blockNumber: BigInt!
     blockTimestamp: BigInt!
     transactionHash: Bytes!

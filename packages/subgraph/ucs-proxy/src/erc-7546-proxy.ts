@@ -7,22 +7,34 @@ import {
 import { ClonedProxies as ClonedProxiesClass } from "../generated/templates";
 import {
     Dictionary,
-    ClonedProxies,
-    Implementations,
+    ImplementationList,
     Operation,
     Admin,
+    ClonedProxyList,
 } from "../generated/schema";
 import { Bytes } from "@graphprotocol/graph-ts";
 
 export function handleDictionaryUpgraded(event: DictionaryUpgradedEvent): void {
-    let entity = new Dictionary("DictionaryId");
-    entity.dictionary = event.params.dictionary;
+    let dictionaryId = "DictionaryId";
+    let dictionary = Dictionary.load(dictionaryId);
+    if (dictionary == null) {
+        dictionary = new Dictionary(dictionaryId);
+    }
+    dictionary.dictionaryImplAddress = event.params.dictionary;
 
-    entity.blockNumber = event.block.number;
-    entity.blockTimestamp = event.block.timestamp;
-    entity.transactionHash = event.transaction.hash;
+    let implementationListId = "ImplementationListId";
+    let implementationList = ImplementationList.load(implementationListId);
+    if (implementationList == null) {
+        implementationList = new ImplementationList(implementationListId);
+    }
 
-    entity.save();
+    dictionary.implementationList = implementationListId;
+
+    dictionary.blockNumber = event.block.number;
+    dictionary.blockTimestamp = event.block.timestamp;
+    dictionary.transactionHash = event.transaction.hash;
+
+    dictionary.save();
 }
 
 export function handleAdminSet(event: AdminSetEvent): void {
@@ -38,19 +50,32 @@ export function handleAdminSet(event: AdminSetEvent): void {
 
 export function handleProxyCloned(event: ProxyClonedEvent): void {
     ClonedProxiesClass.create(event.params.proxy);
+
+    let clonedProxyListId = "ClonedProxyListId";
+    let clonedProxyList = ClonedProxyList.load(clonedProxyListId);
+    if (clonedProxyList == null) {
+        clonedProxyList = new ClonedProxyList(clonedProxyListId);
+        clonedProxyList.proxyAddresses = new Array<Bytes>(0);
+    }
+
+    let proxyAddresses = clonedProxyList.proxyAddresses;
+    proxyAddresses.push(event.params.proxy);
+    clonedProxyList.proxyAddresses = proxyAddresses;
+
+    clonedProxyList.blockNumber = event.block.number;
+    clonedProxyList.blockTimestamp = event.block.timestamp;
+    clonedProxyList.transactionHash = event.transaction.hash;
+
+    clonedProxyList.save();
 }
 
 export function handleImplementationSet(event: ImplementationSetEvent): void {
-    let implementationsId = "ImplementationsId";
-    let implementations = Implementations.load(implementationsId);
-    if (implementations == null) {
-        implementations = new Implementations(implementationsId);
-        implementations.operations = new Array<Bytes>();
+    let implementationListId = "ImplementationListId";
+    let implementationList = ImplementationList.load(implementationListId);
+    if (implementationList == null) {
+        implementationList = new ImplementationList(implementationListId);
+        implementationList.operations = new Array<Bytes>();
     }
-
-    implementations.blockNumber = event.block.number;
-    implementations.blockTimestamp = event.block.timestamp;
-    implementations.transactionHash = event.transaction.hash;
 
     let operationId = event.params.selector;
     let operation = Operation.load(operationId);
@@ -61,14 +86,18 @@ export function handleImplementationSet(event: ImplementationSetEvent): void {
         operation.implementation = event.params.implementation;
         operation.save();
 
-        if (implementations.operations != null) {
-            (implementations.operations as Array<Bytes>).push(operationId);
-        }
+        let operations = implementationList.operations;
+        operations.push(operationId);
+        implementationList.operations = operations;
     } else {
         operation.selector = event.params.selector;
         operation.implementation = event.params.implementation;
         operation.save();
     }
 
-    implementations.save();
+    implementationList.blockNumber = event.block.number;
+    implementationList.blockTimestamp = event.block.timestamp;
+    implementationList.transactionHash = event.transaction.hash;
+
+    implementationList.save();
 }
