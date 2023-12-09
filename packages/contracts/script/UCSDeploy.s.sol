@@ -1,8 +1,9 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.13;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.22;
 
-import {Script, console2} from "forge-std/Script.sol";
-import {UCS} from "../src/UCS.sol";
+import {Script} from "forge-std/Script.sol";
+import {UCS} from "@ucs-ops/src/UCS.sol";
+import {UCSDeploySequence} from "@ucs-ops/script/UCSDeploySequence.sol";
 
 contract UCSDeployScript is Script {
     uint256 deployerPrivateKey;
@@ -13,5 +14,10 @@ contract UCSDeployScript is Script {
 
     function run() public {
         vm.startBroadcast(deployerPrivateKey);
+
+        address ucs = UCSDeploySequence.deployUCS();
+
+        UCS(ucs).create();
     }
+
 }
